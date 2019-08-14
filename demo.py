@@ -19,7 +19,7 @@ dag = DAG(
     'kubernetes_sample', default_args=default_args, schedule_interval=timedelta(minutes=10))
 
 
-passing = KubernetesPodOperator(namespace='default',
+passing = KubernetesPodOperator(namespace='devops',
                           image="Python:3.6",
                           cmds=["Python","-c"],
                           arguments=["print('hello world')"],
@@ -30,7 +30,7 @@ passing = KubernetesPodOperator(namespace='default',
                           dag=dag
                           )
 
-failing = KubernetesPodOperator(namespace='default',
+failing = KubernetesPodOperator(namespace='devops',
                           image="ubuntu:1604",
                           cmds=["Python","-c"],
                           arguments=["print('hello world')"],
