@@ -31,34 +31,9 @@ args = {
 }
 
 dag = DAG(
-    dag_id='example_kubernetes_executor', default_args=args,
+    dag_id='example_python_executor', default_args=args,
     schedule_interval=None
 )
-
-affinity = {
-    'podAntiAffinity': {
-        'requiredDuringSchedulingIgnoredDuringExecution': [
-            {
-                'topologyKey': 'kubernetes.io/hostname',
-                'labelSelector': {
-                    'matchExpressions': [
-                        {
-                            'key': 'app',
-                            'operator': 'In',
-                            'values': ['airflow']
-                        }
-                    ]
-                }
-            }
-        ]
-    }
-}
-
-tolerations = [{
-    'key': 'dedicated',
-    'operator': 'Equal',
-    'value': 'airflow'
-}]
 
 
 def print_stuff():  # pylint: disable=missing-docstring
@@ -75,7 +50,7 @@ def use_zip_binary():
     assert return_code == 0
 
 
+# You don't have to use any special KubernetesExecutor configuration if you don't want to
 start_task = PythonOperator(
-    task_id="start_task", python_callable=print_stuff, dag=dag,
-    executor_config={"KubernetesExecutor": {"image": "python:latest"}}
+    task_id="start_task", python_callable=print_stuff, dag=dag
 )
