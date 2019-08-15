@@ -51,7 +51,11 @@ def use_zip_binary():
     assert return_code == 0
 
 
-start_task = PythonOperator(
-    task_id="start_task", python_callable=print_stuff, dag=dag,
+exec_task = PythonOperator(
+    task_id="exec_task", python_callable=print_stuff, dag=dag,
     executor_config={"KubernetesExecutor": {"image": "python:latest"}}
+)
+
+noexec_task = PythonOperator(
+    task_id="noexec_task", python_callable=print_stuff, dag=dag,
 )
