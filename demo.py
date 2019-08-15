@@ -27,7 +27,10 @@ passing = KubernetesPodOperator(namespace='devops',
                           name="passing-test",
                           task_id="passing-task",
                           get_logs=True,
-                          dag=dag
+                          dag=dag,
+                          volumes=[],
+                          volume_mounts=[],
+                          configmaps=[]
                           )
 
 failing = KubernetesPodOperator(namespace='devops',
