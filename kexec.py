@@ -20,6 +20,7 @@
 This is an example dag for using the Kubernetes Executor.
 """
 import os
+import time
 
 import airflow
 from airflow.models import DAG
@@ -27,7 +28,7 @@ from airflow.operators.python_operator import PythonOperator
 
 args = {
     'owner': 'Airflow',
-    'start_date': airflow.utils.dates.days_ago(2)
+    'start_date': airflow.utils.dates.days_ago(0)
 }
 
 dag = DAG(
@@ -35,33 +36,8 @@ dag = DAG(
     schedule_interval=None
 )
 
-affinity = {
-    'podAntiAffinity': {
-        'requiredDuringSchedulingIgnoredDuringExecution': [
-            {
-                'topologyKey': 'kubernetes.io/hostname',
-                'labelSelector': {
-                    'matchExpressions': [
-                        {
-                            'key': 'app',
-                            'operator': 'In',
-                            'values': ['airflow']
-                        }
-                    ]
-                }
-            }
-        ]
-    }
-}
-
-tolerations = [{
-    'key': 'dedicated',
-    'operator': 'Equal',
-    'value': 'airflow'
-}]
-
-
 def print_stuff():  # pylint: disable=missing-docstring
+    time.sleep(60)
     print("stuff!")
 
 
