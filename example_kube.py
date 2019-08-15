@@ -37,8 +37,6 @@ try:
         'start_date': days_ago(2)
     }
 
-    volume_config = 
-
     dag = DAG(
         dag_id='example_kubernetes_operator',
         default_args=args,
