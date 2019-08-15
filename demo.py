@@ -21,7 +21,7 @@ dag = DAG(
 
 passing = KubernetesPodOperator(namespace='devops',
                           image="Python:3.6",
-                          cmds=["Python","-c"],
+                          cmds=["python","-c"],
                           arguments=["print('hello world')"],
                           labels={"foo": "bar"},
                           name="passing-test",
@@ -32,7 +32,7 @@ passing = KubernetesPodOperator(namespace='devops',
 
 failing = KubernetesPodOperator(namespace='devops',
                           image="ubuntu:1604",
-                          cmds=["Python","-c"],
+                          cmds=["python","-c"],
                           arguments=["print('hello world')"],
                           labels={"foo": "bar"},
                           name="fail",
