@@ -20,7 +20,7 @@ dag = DAG(
 
 
 passing = KubernetesPodOperator(namespace='devops',
-                          image="Python:3.6",
+                          image="registry.example.com/airflow:latest",
                           cmds=["python","-c"],
                           arguments=["print('hello world')"],
                           labels={"foo": "bar"},
